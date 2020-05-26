@@ -1,0 +1,21 @@
+{
+  "name": "alexxvl/algorithm/dijkstra",
+  "description": "Algorithm Dijkstra",
+  "type": "library",
+  "license": "All rights reserved",
+  "version": "0.0.1",
+  "require": {
+    "php": ">=5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "AAV\\Algorithm\\Dijkstra\\": "src/AAV/Algorithm/Dijkstra"
+    }
+  },
+  "authors": [
+    {
+      "name": "AlexXVL",
+      "email": "alexxx2001@gmail.com"
+    }
+  ]
+}

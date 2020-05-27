@@ -1,5 +1,5 @@
 <?php
-namespace AAV\Algoritm\Dijkstra;
+namespace AAV\Algorithm\Dijkstra;
 
 
 use Exception;

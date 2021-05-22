@@ -14,9 +14,10 @@ class Graph implements GraphInterface
 {
     /**
      * Массив точек графа
-     * @var array
+     * array[id]= Node
+     * @var array $nodes
      */
-    private $nodes= [];
+    private array $nodes= [];
 
 
     /**
@@ -45,11 +46,10 @@ class Graph implements GraphInterface
      */
     public function getNode($id)
     {
-        $nodes= $this->getNodes();
-        if (!array_key_exists($id, $nodes))
+        if (!array_key_exists($id, $this->getNodes()))
             throw new Exception('Точка "'.$id.'" в графе не найдена');
 
-        return $nodes[$id];
+        return $this->getNodes()[$id];
     }
 
 
@@ -107,6 +107,9 @@ class Graph implements GraphInterface
      */
     public function reset()
     {
+        /**
+         * @var Node $node
+         */
         foreach ($this->nodes as $node)
             $node->reset();
     }

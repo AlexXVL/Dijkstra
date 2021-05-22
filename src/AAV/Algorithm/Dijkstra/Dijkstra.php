@@ -15,26 +15,31 @@ class Dijkstra
      * Начальная точка
      * @var Node $startingNode
      */
-    private $startingNode;
+    private Node $startingNode;
 
     /**
      * Конечная точка
      * @var Node $endingNode
      */
-    private $endingNode;
+    private Node $endingNode;
 
     /**
      * Набор точек со стоимостью расстояний между ними
      * @var Graph $graph
      */
-    private $graph;
+    private Graph $graph;
 
     /**
      * @var array $paths
      */
-    private $paths= [];
+    private array $paths= [];
 
-    private $solution= false;
+
+    /**
+     * Решён алгоритм или нет
+     * @var bool
+     */
+    private bool $solution= false;
 
 
     /**
@@ -72,7 +77,7 @@ class Dijkstra
     {
         $path= $this->solve();
         $literal= '';
-        foreach ( $path as $p )
+        foreach ($path as $p)
             $literal.= "{$p->getId()} - ";
 
         return substr($literal, 0, strlen($literal) - 4);
@@ -166,7 +171,7 @@ class Dijkstra
 
 
     /**
-     * Запускаем поиск самого выгодного маршрута и возвращаем результат
+     * Запускает поиск самого выгодного маршрута и возвращает результат
      *
      * @return array
      * @throws Exception

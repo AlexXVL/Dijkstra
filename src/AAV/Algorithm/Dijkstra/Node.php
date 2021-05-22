@@ -19,25 +19,25 @@ class Node implements NodeInterface
      * Потенциал точки
      * @var int $potential
      */
-    private $potential;
+    private ?int $potential= null;
 
     /**
      * Точка для которой присвоен потенциал
      * @var Node $potentialFrom
      */
-    private $potentialFrom;
+    private ?Node $potentialFrom= null;
 
     /**
      * Соединения с другими точками
      * @var array $connections
      */
-    private $connections= [];
+    private array $connections= [];
 
     /**
      * Посетили точку или нет
      * @var bool $passed
      */
-    private $passed= false;
+    private bool $passed= false;
 
 
     /**
@@ -57,7 +57,7 @@ class Node implements NodeInterface
      * @param Node $node
      * @param int $distance
      */
-    public function connect(Node $node, $distance = 1)
+    public function connect(Node $node, $distance= 1)
     {
         $this->connections[$node->getId()]= $distance;
     }
@@ -65,6 +65,7 @@ class Node implements NodeInterface
 
     /**
      * Возвращает стоимость маршрута между точками
+     * @todo проверить работу функции. в Dijkstra.php есть непонятный метод getDistance
      *
      * @param Node $node
      * @return array

@@ -14,14 +14,14 @@ interface NodeInterface
      * @param Node $node
      * @param int $distance
      */
-    public function connect(Node $node, $distance= 1);
+    public function connect(Node $node, int $distance= 1);
 
     /**
      * Возвращает соединения с другими точками
      *
      * @return array
      */
-    public function getConnections();
+    public function getConnections(): array;
 
     /**
      * Возвращает идентификатор точки
@@ -35,21 +35,21 @@ interface NodeInterface
      *
      * @return int
      */
-    public function getPotential();
+    public function getPotential(): int;
 
     /**
      * Возвращает точку для которой присвоен потенциал
      *
      * @return Node
      */
-    public function getPotentialFrom();
+    public function getPotentialFrom(): Node;
 
     /**
      * Возвращает посетили точку или нет
      *
      * @return bool
      */
-    public function isPassed();
+    public function isPassed(): bool;
 
     /**
      * Помечает точку как пройденную
@@ -63,5 +63,5 @@ interface NodeInterface
      * @param Node $from
      * @return bool
      */
-    public function setPotential($potential, Node $from);
+    public function setPotential(int $potential, Node $from): bool;
 }

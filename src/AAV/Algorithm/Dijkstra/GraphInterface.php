@@ -1,4 +1,5 @@
 <?php
+
 namespace AAV\Algorithm\Dijkstra;
 
 
@@ -18,7 +19,7 @@ interface GraphInterface
      * @return Graph
      * @throws Exception
      */
-    public function add(Node $node);
+    public function add(Node $node): Graph;
 
     /**
      * Возвращает точку графа
@@ -27,12 +28,12 @@ interface GraphInterface
      * @return Node
      * @throws Exception
      */
-    public function getNode($id);
+    public function getNode($id): Node;
 
     /**
      * Возвращает все точки графа
      *
      * @return array
      */
-    public function getNodes();
+    public function getNodes(): array;
 }

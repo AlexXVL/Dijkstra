@@ -1,4 +1,5 @@
 <?php
+
 namespace AAV\Algorithm\Dijkstra;
 
 
@@ -17,27 +18,27 @@ class Node implements NodeInterface
 
     /**
      * Потенциал точки
-     * @var int $potential
+     * @var int|null $potential
      */
-    private ?int $potential= null;
+    private ?int $potential = null;
 
     /**
      * Точка для которой присвоен потенциал
-     * @var Node $potentialFrom
+     * @var Node|null $potentialFrom
      */
-    private ?Node $potentialFrom= null;
+    private ?Node $potentialFrom = null;
 
     /**
      * Соединения с другими точками
      * @var array $connections
      */
-    private array $connections= [];
+    private array $connections = [];
 
     /**
      * Посетили точку или нет
      * @var bool $passed
      */
-    private bool $passed= false;
+    private bool $passed = false;
 
 
     /**
@@ -47,7 +48,7 @@ class Node implements NodeInterface
      */
     public function __construct($id)
     {
-        $this->id= $id;
+        $this->id = $id;
     }
 
 
@@ -57,20 +58,20 @@ class Node implements NodeInterface
      * @param Node $node
      * @param int $distance
      */
-    public function connect(Node $node, $distance= 1)
+    public function connect(Node $node, int $distance = 1)
     {
-        $this->connections[$node->getId()]= $distance;
+        $this->connections[$node->getId()] = $distance;
     }
 
 
     /**
      * Возвращает стоимость маршрута между точками
-     * @todo проверить работу функции. в Dijkstra.php есть непонятный метод getDistance
-     *
      * @param Node $node
      * @return array
+     * @todo проверить работу функции. в Dijkstra.php есть непонятный метод getDistance
+     *
      */
-    public function getDistance(Node $node)
+    public function getDistance(Node $node): array
     {
         return $this->connections[$node->getId()];
     }
@@ -81,7 +82,7 @@ class Node implements NodeInterface
      *
      * @return array
      */
-    public function getConnections()
+    public function getConnections(): array
     {
         return $this->connections;
     }
@@ -103,7 +104,7 @@ class Node implements NodeInterface
      *
      * @return int
      */
-    public function getPotential()
+    public function getPotential(): ?int
     {
         return $this->potential;
     }
@@ -114,7 +115,7 @@ class Node implements NodeInterface
      *
      * @return Node
      */
-    public function getPotentialFrom()
+    public function getPotentialFrom(): ?Node
     {
         return $this->potentialFrom;
     }
@@ -125,7 +126,7 @@ class Node implements NodeInterface
      *
      * @return bool
      */
-    public function isPassed()
+    public function isPassed(): bool
     {
         return $this->passed;
     }
@@ -136,7 +137,7 @@ class Node implements NodeInterface
      */
     public function markPassed()
     {
-        $this->passed= true;
+        $this->passed = true;
     }
 
 
@@ -147,13 +148,13 @@ class Node implements NodeInterface
      * @param Node $from
      * @return boolean
      */
-    public function setPotential($potential, Node $from)
+    public function setPotential(int $potential, Node $from): bool
     {
-        $potential= (int)$potential;
-        if (!$this->getPotential() || $potential < $this->getPotential())
-        {
-            $this->potential= $potential;
-            $this->potentialFrom= $from;
+        $potential = (int)$potential;
+
+        if (!$this->getPotential() || $potential < $this->getPotential()) {
+            $this->potential = $potential;
+            $this->potentialFrom = $from;
             return true;
         }
 
@@ -166,8 +167,8 @@ class Node implements NodeInterface
      */
     public function reset()
     {
-        $this->potential= null;
-        $this->potentialFrom= null;
-        $this->passed= false;
+        $this->potential = null;
+        $this->potentialFrom = null;
+        $this->passed = false;
     }
 }

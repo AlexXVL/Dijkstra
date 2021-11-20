@@ -1,4 +1,5 @@
 <?php
+
 namespace AAV\Algorithm\Dijkstra;
 
 
@@ -17,7 +18,7 @@ class Graph implements GraphInterface
      * array[id]= Node
      * @var array $nodes
      */
-    private array $nodes= [];
+    private array $nodes = [];
 
 
     /**
@@ -27,12 +28,12 @@ class Graph implements GraphInterface
      * @return Graph
      * @throws Exception
      */
-    public function add(Node $node)
+    public function add(Node $node): Graph
     {
         if (array_key_exists($node->getId(), $this->getNodes()))
-                throw new Exception('Точка с таким индексом уже есть в графе');
+            throw new Exception('Точка с таким индексом уже есть в графе');
 
-        $this->nodes[$node->getId()]= $node;
+        $this->nodes[$node->getId()] = $node;
         return $this;
     }
 
@@ -44,10 +45,10 @@ class Graph implements GraphInterface
      * @return Node
      * @throws Exception
      */
-    public function getNode($id)
+    public function getNode($id): Node
     {
         if (!array_key_exists($id, $this->getNodes()))
-            throw new Exception('Точка "'.$id.'" в графе не найдена');
+            throw new Exception('Точка "' . $id . '" в графе не найдена');
 
         return $this->getNodes()[$id];
     }
@@ -58,7 +59,7 @@ class Graph implements GraphInterface
      *
      * @return array
      */
-    public function getNodes()
+    public function getNodes(): array
     {
         return $this->nodes;
     }
@@ -71,29 +72,24 @@ class Graph implements GraphInterface
      * @return Graph
      * @throws Exception
      */
-    public static function fill_graph($routes)
+    public static function fill_graph(array $routes): Graph
     {
-        $graph= new Graph();
-        foreach ($routes as $route)
-        {
-            $from= $route['from'];
-            $to= $route['to'];
-            $price= $route['price'];
-            if (!array_key_exists($from, $graph->getNodes()))
-            {
-                $from_node= new Node($from);
+        $graph = new Graph();
+        foreach ($routes as $route) {
+            $from = $route['from'];
+            $to = $route['to'];
+            $price = $route['price'];
+            if (!array_key_exists($from, $graph->getNodes())) {
+                $from_node = new Node($from);
                 $graph->add($from_node);
-            }
-            else
-                $from_node= $graph->getNode($from);
+            } else
+                $from_node = $graph->getNode($from);
 
-            if (!array_key_exists($to, $graph->getNodes()))
-            {
-                $to_node= new Node($to);
+            if (!array_key_exists($to, $graph->getNodes())) {
+                $to_node = new Node($to);
                 $graph->add($to_node);
-            }
-            else
-                $to_node= $graph->getNode($to);
+            } else
+                $to_node = $graph->getNode($to);
 
             $from_node->connect($to_node, $price);
         }

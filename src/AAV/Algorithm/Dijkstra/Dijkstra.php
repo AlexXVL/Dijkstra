@@ -37,9 +37,9 @@ class Dijkstra
 
     /**
      * Решён алгоритм или нет
-     * @var bool
+     * @var array
      */
-    private bool $solution= false;
+    private array $solution= [];
 
 
     /**
@@ -104,9 +104,9 @@ class Dijkstra
     /**
      * Вычисляет самый выгодный маршрут
      *
-     * @return array|bool
+     * @return array
      */
-    public function getShortestPath()
+    public function getShortestPath(): array
     {
         $path= [];
         $node= $this->getEndingNode();
@@ -115,7 +115,7 @@ class Dijkstra
             $path[]= $node;
 
             if (is_null($node->getPotentialFrom()))
-                return false;
+                return [];
 
             $node= $node->getPotentialFrom();
         }
@@ -176,7 +176,7 @@ class Dijkstra
      * @return array
      * @throws Exception
      */
-    public function solve()
+    public function solve(): array
     {
         $this->getGraph()->reset();
         if (!$this->getStartingNode() || !$this->getEndingNode())
@@ -248,8 +248,8 @@ class Dijkstra
      *
      * @return boolean
      */
-    private function isSolved()
+    private function isSolved(): bool
     {
-        return ( bool ) $this->solution;
+        return (bool)count($this->solution);
     }
 }

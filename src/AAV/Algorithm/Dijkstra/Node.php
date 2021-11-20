@@ -102,7 +102,7 @@ class Node implements NodeInterface
     /**
      * Возвращает потенциал точки
      *
-     * @return int
+     * @return ?int
      */
     public function getPotential(): ?int
     {
@@ -113,7 +113,7 @@ class Node implements NodeInterface
     /**
      * Возвращает точку для которой присвоен потенциал
      *
-     * @return Node
+     * @return Node|null
      */
     public function getPotentialFrom(): ?Node
     {

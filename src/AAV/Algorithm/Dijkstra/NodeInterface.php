@@ -33,16 +33,16 @@ interface NodeInterface
     /**
      * Возвращает потенциал точки
      *
-     * @return int
+     * @return ?int
      */
-    public function getPotential(): int;
+    public function getPotential(): ?int;
 
     /**
      * Возвращает точку для которой присвоен потенциал
      *
-     * @return Node
+     * @return Node|null
      */
-    public function getPotentialFrom(): Node;
+    public function getPotentialFrom(): ?Node;
 
     /**
      * Возвращает посетили точку или нет

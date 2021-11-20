@@ -1,4 +1,5 @@
 <?php
+
 namespace AAV\Algorithm\Dijkstra;
 
 
@@ -32,14 +33,14 @@ class Dijkstra
     /**
      * @var array $paths
      */
-    private array $paths= [];
+    private array $paths = [];
 
 
     /**
      * Решён алгоритм или нет
      * @var array
      */
-    private array $solution= [];
+    private array $solution = [];
 
 
     /**
@@ -48,17 +49,17 @@ class Dijkstra
      */
     public function __construct(Graph $graph)
     {
-        $this->graph= $graph;
+        $this->graph = $graph;
     }
 
 
     /**
      * Возвращает стоимость пути между начальной и конечной точкой
      *
-     * @return int
+     * @return ?int
      * @throws Exception
      */
-    public function getDistance()
+    public function getDistance(): ?int
     {
         if (!$this->isSolved())
             throw new Exception('Невозможно рассчитать путь (путь не найден, либо не выполнен $this->solve()');
@@ -73,12 +74,12 @@ class Dijkstra
      * @return string
      * @throws Exception
      */
-    public function getLiteralShortestPath()
+    public function getLiteralShortestPath(): string
     {
-        $path= $this->solve();
-        $literal= '';
+        $path = $this->solve();
+        $literal = '';
         foreach ($path as $p)
-            $literal.= "{$p->getId()} - ";
+            $literal .= "{$p->getId()} - ";
 
         return substr($literal, 0, strlen($literal) - 4);
     }
@@ -90,12 +91,12 @@ class Dijkstra
      * @return array
      * @throws Exception
      */
-    public function getArrayShortestPath()
+    public function getArrayShortestPath(): array
     {
-        $result= [];
-        $path= $this->solve();
-        foreach ( $path as $p )
-            $result[]= $p->getId();
+        $result = [];
+        $path = $this->solve();
+        foreach ($path as $p)
+            $result[] = $p->getId();
 
         return $result;
     }
@@ -108,19 +109,18 @@ class Dijkstra
      */
     public function getShortestPath(): array
     {
-        $path= [];
-        $node= $this->getEndingNode();
-        while ( $node->getId()!= $this->getStartingNode()->getId() )
-        {
-            $path[]= $node;
+        $path = [];
+        $node = $this->getEndingNode();
+        while ($node->getId() != $this->getStartingNode()->getId()) {
+            $path[] = $node;
 
             if (is_null($node->getPotentialFrom()))
                 return [];
 
-            $node= $node->getPotentialFrom();
+            $node = $node->getPotentialFrom();
         }
 
-        $path[]= $this->getStartingNode();
+        $path[] = $this->getStartingNode();
         return array_reverse($path);
     }
 
@@ -130,7 +130,7 @@ class Dijkstra
      *
      * @return Node
      */
-    public function getStartingNode()
+    public function getStartingNode(): Node
     {
         return $this->startingNode;
     }
@@ -141,7 +141,7 @@ class Dijkstra
      *
      * @return Node
      */
-    public function getEndingNode()
+    public function getEndingNode(): Node
     {
         return $this->endingNode;
     }
@@ -154,8 +154,8 @@ class Dijkstra
      */
     public function setStartingNode(Node $node)
     {
-        $this->paths[]= array($node);
-        $this->startingNode= $node;
+        $this->paths[] = array($node);
+        $this->startingNode = $node;
     }
 
 
@@ -166,7 +166,7 @@ class Dijkstra
      */
     public function setEndingNode(Node $node)
     {
-        $this->endingNode= $node;
+        $this->endingNode = $node;
     }
 
 
@@ -183,7 +183,7 @@ class Dijkstra
             throw new Exception('Необходимо задать начальную и конечную точки');
 
         $this->calculatePotentials($this->getStartingNode());
-        $this->solution= $this->getShortestPath();
+        $this->solution = $this->getShortestPath();
         return $this->solution;
     }
 
@@ -196,25 +196,22 @@ class Dijkstra
      */
     private function calculatePotentials(Node $node)
     {
-        $connections= $node->getConnections();
-        $sorted= array_flip($connections);
+        $connections = $node->getConnections();
+        $sorted = array_flip($connections);
         krsort($sorted);
-        foreach ( $connections as $id => $distance )
-        {
-            $v= $this->getGraph()->getNode($id);
+        foreach ($connections as $id => $distance) {
+            $v = $this->getGraph()->getNode($id);
             $v->setPotential($node->getPotential() + $distance, $node);
-            foreach ( $this->getPaths() as $path )
-            {
-                $count= count($path);
+            foreach ($this->getPaths() as $path) {
+                $count = count($path);
                 if ($path[$count - 1]->getId() === $node->getId())
-                    $this->paths[]= array_merge($path, array($v));
+                    $this->paths[] = array_merge($path, array($v));
             }
         }
         $node->markPassed();
 
-        foreach ( $sorted as $id )
-        {
-            $node= $this->getGraph()->getNode($id);
+        foreach ($sorted as $id) {
+            $node = $this->getGraph()->getNode($id);
             if (!$node->isPassed())
                 $this->calculatePotentials($node);
         }
@@ -226,7 +223,7 @@ class Dijkstra
      *
      * @return Graph
      */
-    protected function getGraph()
+    protected function getGraph(): Graph
     {
         return $this->graph;
     }
@@ -237,7 +234,7 @@ class Dijkstra
      *
      * @return array
      */
-    private function getPaths()
+    private function getPaths(): array
     {
         return $this->paths;
     }
